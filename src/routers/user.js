@@ -10,8 +10,8 @@ router.post("/users", async (req,res) => {
     const user = new User(req.body);
     try {
         await user.save()
-        sendWelcomeEmail(user.email,user.name)
         const token = await user.generateAuthToken()
+        sendWelcomeEmail(user.email,user.name)
         res.status(201)
         res.send({user, token})
     } catch (error) {
@@ -140,7 +140,7 @@ router.get("/users/:id/avatar", async (req, res) => {
             throw new Error()
         }
 
-        res.set("Content-Type", "image/png      ")
+        res.set("Content-Type", "image/png")
         res.send(user.avatar)
     } catch (error) {
         res.status(400)
